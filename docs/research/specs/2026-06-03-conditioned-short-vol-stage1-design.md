@@ -32,7 +32,9 @@ small, tail-dominated positive edge or an honest null. We hunt the *increment*, 
   `moc-signal-analysis/data`. Source of order-flow / absorption / regime signals.
 - SPX underlying intraday — derivable from `spx-0dte-pinfly-lab/data` (~32 GB parquet) + futures.
   Source of the realized-vol & down-move *targets* and the crowded realized-vol *baseline.*
-- SPX **0DTE** options (front-of-surface only) — front IV proxy; **not** a term structure.
+- SPX **0DTE** options incl. per-strike **open interest** (PinFly used `oi_concentration` / `oi_on_spot`)
+  — a front IV proxy **and** enough to compute a same-day **dealer-gamma proxy**; front-of-surface only,
+  **not** a term structure.
 
 **Needs a pull (spend) — required only for Stage-1b / Stage-2:**
 - Full SPX/XSP **vol surface across tenors** (weekly → 1-yr), multi-year span — for term-structure
@@ -49,9 +51,13 @@ small, tail-dominated positive edge or an honest null. We hunt the *increment*, 
 
 **Differentiated D (the actual shot at a non-crowded edge):**
 - *In-hand (Stage-1a):* futures **order-flow / trade-sign imbalance** (`trade_sign`, DAT threshold
-  detectors), **absorption** (MOC work), intraday **regime label** (`regime` + nonstationarity).
-- *(Stage-1b, needs OI/surface pull:)* **dealer gamma / GEX** (`scratch_gex_regime`), `dom_skew`,
-  `oi_concentration`.
+  detectors), **absorption** (MOC work), intraday **regime label** (`regime` + nonstationarity), and a
+  **0DTE-derived dealer-gamma proxy** (per-strike BS gamma from IV × open interest, summed near spot;
+  the **first ported mechanic**, generalized from PinFly `scratch_gex_regime` + `oi_concentration` /
+  `oi_on_spot`). Strongest at the **1d** horizon (0DTE gamma dominates intraday); an honest *partial* of
+  full GEX.
+- *(Stage-1b, needs OI/surface pull:)* **full-chain dealer gamma / GEX** (all expiries — the multi-day
+  upgrade to the 0DTE proxy), `dom_skew` (needs book depth), `oi_concentration` across tenors.
 
 ## 4. Targets (favorable-state labels) — both computable from SPX underlying alone
 For decision time *t* and horizon *h*:
@@ -107,7 +113,7 @@ result; prefer few, monotone, pre-registered features.
    flow; define the no-lookahead "feature as-of *t*" contract.
 2. **Step 1 — targets:** build T1 (forward RV) and T2 (forward down-move) over h ∈ {1d,3d,1wk}, w/ tests.
 3. **Step 2 — features:** baseline B (in-hand) and differentiated D_now (futures flow / absorption /
-   regime), strictly as-of *t*.
+   regime **+ the 0DTE dealer-gamma proxy**, the first ported mechanic), strictly as-of *t*.
 4. **Step 3 — nested CV harness:** purged / embargoed walk-forward; ΔIC / ΔAUC / ΔR² with multiple-
    testing haircut + MDE.
 5. **Step 4 — verdict memo:** PASS / KILL / INCONCLUSIVE per §6, with the trial registry + provenance.
