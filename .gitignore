@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.env
+.env.*
+!.env.example
+
+# Secrets / credentials
+*.key
+*.pem
+*token*
+*secret*
+*credential*
+*key*.txt
+*api*key*
+
+# Local/raw research data - never commit
+/data/raw/**
+/data/interim/**
+/data/processed/**
+/reports/**
+*.csv
+*.xlsx
+*.parquet
+*.dbn
+*.zst
+*.zip
+
+# Keep directory placeholders
+!/data/raw/.gitkeep
+!/data/interim/.gitkeep
+!/data/processed/.gitkeep
+!/reports/.gitkeep
+
+# Local runtime
+.optlab_runtime/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
