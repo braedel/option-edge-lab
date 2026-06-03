@@ -21,8 +21,9 @@ A pre-registered rule, frozen before the sealed OOS look, that:
 - Don't re-litigate a dead detector family on the same data; spend OOS only on genuinely fresh hypotheses.
 
 ## Current step
-**Direction chosen:** conditioned short-vol on SPX — cross-asset (futures supply the signal, options the
-vehicle), structure deferred to the data. Pre-registration + Stage-1 design written:
-`docs/research/specs/2026-06-03-conditioned-short-vol-stage1-design.md`. **Stage-1a** (differentiated
-signal -> forward realized-vol / down-move, *incremental over* the crowded baseline) runs on **in-hand
-data only — no spend until it passes.** Next: implementation plan, then build Stage-1a.
+**Stage-1a v1 = KILL (robust).** Built + ran the incremental-signal gate (pipeline in `src/options_lab`,
+plan `docs/research/plans/2026-06-03-stage1a-incremental-signal.md`). On 3,605 pre-OOS daily obs
+(2011 -> 2025-08), lagged SqueezeMetrics GEX+DIX add **no** incremental out-of-fold skill over a
+realized-vol baseline for forward RV / drawdown (every ΔR² < 0); robust to a nonlinear model + lag-0.
+Result: `docs/research/results/2026-06-03-stage1a-v1.md`. OOS (2025-09+) untouched; no data spend.
+**Decision pending:** v2 (own futures order-flow — fresh but deflated prior), pivot horizon, or stop.
