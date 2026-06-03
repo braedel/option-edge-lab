@@ -26,4 +26,8 @@ OOS test. Running log + trial registry: `CAMPAIGN.md`.
 - Stage-1a v1 (GEX/DIX → vol): **KILL**.
 - **C1** threshold-detector v2 forward-OOS: **NULL** — frozen rules net −$0.90 to −$4.90/trade on unseen
   2025H2–2026 (ES/NQ proxy); historical edge did not persist forward.
-- **C2 (running):** overnight-drift / close-to-open vs open-to-close in ES/NQ — sealed OOS, cost-aware.
+- **C2** overnight drift: NULL (Sharpe 0.3–0.8, t<1.2, 2026 reversed; beta, not alpha).
+- **C3** options VRP (highest-prior survivor category): **BLOCKED — no data** (in-hand 0DTE is a 90-sec pin
+  snapshot; no VIX/option-chains; no Databento key).
+- **Status: comprehensive null + data wall.** Remaining OOS-surviving categories (VRP, VIX-carry, diversified
+  TSMOM) need a Databento key + small pull budget. Next data-free step: build VRP harness ready-to-run.

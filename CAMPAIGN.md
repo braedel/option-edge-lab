@@ -24,8 +24,32 @@ MES/MNQ; reproduction matched aggregate +~$2/trade but not per-year → proxy ap
 2026-only +$0.69 @ $2 but negative at realistic cost and one-month-dependent. The historical edge did
 not persist forward. Script: `campaign/c1_threshold_forward_oos.py`.
 
-### C2 — Overnight drift (close-to-open vs open-to-close), ES/NQ · **RUNNING** · 2026-06-03
-Hypothesis: the documented overnight-return premium (most of the equity premium accrues overnight; the
-intraday session is ~flat/negative). Low-turnover, cost-tolerant, in-hand (volume-roll 2019→2026).
-Test = overnight vs intraday return decomposition by year + a sealed-OOS (DEV <2024, OOS ≥2024)
-long-overnight strategy net of realistic cost, with t-stats. Script: `campaign/c2_overnight_drift.py`.
+### C2 — Overnight drift (close-to-open vs open-to-close), ES/NQ · **VERDICT: NULL** · 2026-06-03
+Overnight long is positive on average but Sharpe 0.3–0.8 and **t < 1.2** (ES OOS≥2024 +$71.64/day t=0.93;
+NQ +$164/day t=1.15) — far from |t|>3, and essentially long beta. **2026 YTD reversed hard negative**
+(ES −7.3pt, NQ −31.7pt overnight/day). Unstable, insignificant, not alpha. Script:
+`campaign/c2_overnight_drift.py`.
+
+### C3 — Options VRP harvest (the highest-prior surviving category) · **BLOCKED: no data** · 2026-06-03
+A risk *premium* (compensation for risk) survives OOS in a way prediction edges don't — the right target.
+But: in-hand SPX 0DTE data is only a **90-second pin snapshot (15:58:30–15:59:59)** with ~zero time value
+to sell → no VRP harvest possible. No VIX, no VIX futures, no full option chains in-hand or on the network
+share. **No Databento API key exists** (every key file is 0 bytes; the `.env` "SPX_FLY_API_KEY" is a GitHub
+PAT). So proper VRP / VIX-carry / diversified-TSMOM all require a paid data pull I cannot perform.
+
+### ZB passive market-making — **project-adjudicated BLOCKED / non-deployable** (2026-05-23)
+`reports/zb_passive_exit_deep_dive/branch_blocker_decision_*`: sparse exact-HFT fills, passive-exit
+mechanism unvalidated, mixed-to-negative clean checkpoints, no live-latency evidence. Re-litigation
+explicitly forbidden. Retail passive-MM vs HFT — not viable.
+
+## Campaign status (2026-06-03): COMPREHENSIVE NULL + DATA WALL
+Every accessible, in-hand, zero-spend candidate is NULL or blocked: futures prediction edges decay OOS
+(C1, C2, MOC, opening-drive/vwap/breakout/…), options vol-forecasting KILLed (v1), options VRP infeasible
+in-hand (90-sec snapshot only), ZB passive-MM project-blocked. The remaining genuinely-OOS-surviving
+categories are **risk premia** (options VRP, VIX-futures carry) and **diversified time-series momentum** —
+all of which need data **not in hand and not pullable** (no Databento key/budget).
+**Unblock to continue with real prospect:** a working **Databento API key** (their existing subscription)
++ a small budget to pull either (a) SPX/XSP daily option chains [VRP], (b) VIX futures daily settle
+[carry], or (c) ~10 diversified futures roots [TSMOM]. Continuing to mine the exhausted in-hand data would
+manufacture multiple-testing false positives — forbidden by this lab's integrity rules. Next productive
+step that does NOT require data: build the VRP backtest harness ready-to-run the moment data lands.
