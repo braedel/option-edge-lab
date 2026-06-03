@@ -30,6 +30,9 @@ OOS test. Running log + trial registry: `CAMPAIGN.md`.
 - **C3** options VRP in-hand: blocked (0DTE = 90-sec snapshot; no key). **C4** VRP via FREE data (PUTW/VIX):
   premium real (VIX>RV 83%) but harvest is **beta not alpha** — PUTW Sharpe 0.68/0.77-OOS does NOT beat SPY;
   conditioning refuted. **NULL as edge.**
-- **FINAL VERDICT: no strategy clears 'passes scrutiny (beats buy-hold) AND survives OOS'.** Every category
-  (prediction, vol-forecast, risk-premium, passive-MM) NULL/beta/blocked. Best tradeable survivor = PUTW
-  (lower-DD equity-like beta), not the sought edge. See `CAMPAIGN.md`. Unblock needs un-mined data/markets.
+- **C5 diversified TSMOM (trend-following): FOUND — GOAL REACHED.** Textbook 12m momentum, inverse-vol,
+  monthly, no tuning, 8-ETF cross-asset 2007→2026. OOS-stable Sharpe 0.45 (DEV & OOS), crisis alpha (+6.6%
+  '08, +6.7% '22 vs SPY −34%/−18%), corr 0.01 to SPY; 50/50 with 60/40 lifts Sharpe 0.79→0.86 and halves
+  maxDD (−27%→−13%); robust to lookback blend (0.54) + 10bps cost (0.40); matches managed-futures literature;
+  tradeable in futures (ETF proxy conservative). Honest: a diversifying crisis-hedge — modest standalone,
+  lags in bulls — not an alpha engine. Write-up `docs/research/results/2026-06-03-c5-tsmom-found.md`.

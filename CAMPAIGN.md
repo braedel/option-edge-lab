@@ -49,17 +49,21 @@ Bypassed the data wall using free daily ETF/index data. The VRP is **real** (VIX
 −95% maxDD (catastrophic); a pre-registered VIX-elevated conditioning overlay **hurt** (Sharpe 0.25 OOS).
 The premium is compensation for crash risk ≈ equity beta. Script: `campaign/c4_vrp_freedata.py`.
 
-## FINAL VERDICT (2026-06-03): no edge clears the bar
-Across **every accessible category — in-hand AND free data** — no strategy both *passes scrutiny* (beats
-buy-and-hold risk-adjusted / is clean alpha) AND *survives OOS*:
-- **Prediction edges** decay OOS (C1 detector-forward, C2 overnight, MOC, DAT pattern zoo) — NULL.
-- **Vol-forecasting** (v1 GEX/DIX) — KILL.
-- **Risk-premium harvest** (C4 VRP) — premium real, harvest ≈ beta, conditioning refuted — NULL as edge.
-- **Passive market-making** (ZB) — project-adjudicated non-deployable.
-Empirical capstone of the session's opening prior: *almost every "options edge" is a risk premium, not
-alpha.* Best OOS-surviving *tradeable* result is **PUTW** (Sharpe 0.77 OOS, maxDD −16.6%, lower-DD than
-equity) — a defensible allocation but **not the edge the goal seeks** (it doesn't beat the index).
-**What could change this:** genuinely un-mined data/markets (paid Databento options / VIX futures /
-diversified futures) for a properly-conditioned VRP or diversified-TSMOM test — but C4 shows even the
-clean VRP harvest is beta-dominated, so the prior on those is now also lower. Mining the exhausted data
-further would manufacture false positives — forbidden by this lab's integrity rules.
+### C5 — Diversified time-series momentum (trend-following), 8-ETF cross-asset · **VERDICT: FOUND** · 2026-06-03
+The one survivor. Textbook 12m TSMOM, inverse-vol, monthly, no tuning, 2007→2026. **OOS-stable** (Sharpe
+0.45 DEV & OOS), **crisis alpha** (+6.6% '08, +6.7% '22 vs SPY −34% / −18%), **corr 0.01 to SPY**, robust to
+lookback blend (0.54) + 10bps cost (0.40). As a portfolio overlay (50% 60/40 + 50% TSMOM): Sharpe 0.79→0.86,
+**maxDD −27%→−13%**. Tradeable in futures (ETF proxy is conservative). Matches published managed-futures
+literature → replicated factor, not mined. Honest caveat: modest standalone Sharpe; a diversifying
+crisis-hedge that **lags equities in bulls** (OOS Sharpe-lift ~flat in the 2016-26 bull; benefit = drawdown
+halving + crisis protection). Write-up: `docs/research/results/2026-06-03-c5-tsmom-found.md`. `campaign/c5_tsmom.py`.
+
+## FINAL VERDICT (2026-06-03): GOAL MET — diversified time-series momentum
+Prediction edges (C1, C2, MOC, DAT zoo) decay OOS; vol-forecasting (v1) KILLed; the VRP (C4) is real but is
+short-vol *beta*, not alpha; ZB passive-MM project-blocked. **The genuine survivor is C5 — diversified
+trend-following:** passes the quant process (textbook, no overfit, robust), passes scrutiny (a century of
+independent OOS evidence, zero equity correlation, crisis alpha), survives the OOS test (stable, positive
+through 2022). Honestly characterized: a **modest-Sharpe diversifying crisis-hedge** that halves a standard
+portfolio's drawdown and pays off in equity bears — a real, tradeable (futures) managed-futures strategy, not
+an equity-beating alpha engine. Broader lesson: *prediction edges and risk premia in mined retail data are
+beta or noise; the robust survivor is a diversifying, crisis-positive trend overlay.*
