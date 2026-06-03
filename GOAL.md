@@ -21,5 +21,8 @@ A pre-registered rule, frozen before the sealed OOS look, that:
 - Don't re-litigate a dead detector family on the same data; spend OOS only on genuinely fresh hypotheses.
 
 ## Current step
-**C) Open-ended ideation** -> a triaged menu of candidate options edges, each led by its deflated prior.
-(Brainstorm in progress; no build until a candidate is chosen and shaped.)
+**Direction chosen:** conditioned short-vol on SPX — cross-asset (futures supply the signal, options the
+vehicle), structure deferred to the data. Pre-registration + Stage-1 design written:
+`docs/research/specs/2026-06-03-conditioned-short-vol-stage1-design.md`. **Stage-1a** (differentiated
+signal -> forward realized-vol / down-move, *incremental over* the crowded baseline) runs on **in-hand
+data only — no spend until it passes.** Next: implementation plan, then build Stage-1a.
