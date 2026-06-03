@@ -21,9 +21,9 @@ A pre-registered rule, frozen before the sealed OOS look, that:
 - Don't re-litigate a dead detector family on the same data; spend OOS only on genuinely fresh hypotheses.
 
 ## Current step
-**Stage-1a v1 = KILL (robust).** Built + ran the incremental-signal gate (pipeline in `src/options_lab`,
-plan `docs/research/plans/2026-06-03-stage1a-incremental-signal.md`). On 3,605 pre-OOS daily obs
-(2011 -> 2025-08), lagged SqueezeMetrics GEX+DIX add **no** incremental out-of-fold skill over a
-realized-vol baseline for forward RV / drawdown (every ΔR² < 0); robust to a nonlinear model + lag-0.
-Result: `docs/research/results/2026-06-03-stage1a-v1.md`. OOS (2025-09+) untouched; no data spend.
-**Decision pending:** v2 (own futures order-flow — fresh but deflated prior), pivot horizon, or stop.
+**Autonomous campaign (owner /goal 2026-06-03):** find a futures/options strategy that survives a clean
+OOS test. Running log + trial registry: `CAMPAIGN.md`.
+- Stage-1a v1 (GEX/DIX → vol): **KILL**.
+- **C1** threshold-detector v2 forward-OOS: **NULL** — frozen rules net −$0.90 to −$4.90/trade on unseen
+  2025H2–2026 (ES/NQ proxy); historical edge did not persist forward.
+- **C2 (running):** overnight-drift / close-to-open vs open-to-close in ES/NQ — sealed OOS, cost-aware.
