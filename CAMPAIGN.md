@@ -42,14 +42,24 @@ PAT). So proper VRP / VIX-carry / diversified-TSMOM all require a paid data pull
 mechanism unvalidated, mixed-to-negative clean checkpoints, no live-latency evidence. Re-litigation
 explicitly forbidden. Retail passive-MM vs HFT — not viable.
 
-## Campaign status (2026-06-03): COMPREHENSIVE NULL + DATA WALL
-Every accessible, in-hand, zero-spend candidate is NULL or blocked: futures prediction edges decay OOS
-(C1, C2, MOC, opening-drive/vwap/breakout/…), options vol-forecasting KILLed (v1), options VRP infeasible
-in-hand (90-sec snapshot only), ZB passive-MM project-blocked. The remaining genuinely-OOS-surviving
-categories are **risk premia** (options VRP, VIX-futures carry) and **diversified time-series momentum** —
-all of which need data **not in hand and not pullable** (no Databento key/budget).
-**Unblock to continue with real prospect:** a working **Databento API key** (their existing subscription)
-+ a small budget to pull either (a) SPX/XSP daily option chains [VRP], (b) VIX futures daily settle
-[carry], or (c) ~10 diversified futures roots [TSMOM]. Continuing to mine the exhausted in-hand data would
-manufacture multiple-testing false positives — forbidden by this lab's integrity rules. Next productive
-step that does NOT require data: build the VRP backtest harness ready-to-run the moment data lands.
+### C4 — VRP harvest via FREE tradeable data (PUTW / SVXY / VIX) · **VERDICT: NULL as an edge** · 2026-06-03
+Bypassed the data wall using free daily ETF/index data. The VRP is **real** (VIX > forward-21d RV on
+**83%** of days, mean +3.7 vol-pts). But harvesting it is **not alpha**: PUTW (put-write) Sharpe **0.68**
+(0.77 OOS, maxDD −28%) **does not beat buy-and-hold SPY** (0.89 full / 0.75 OOS); SVXY (short-vol)
+−95% maxDD (catastrophic); a pre-registered VIX-elevated conditioning overlay **hurt** (Sharpe 0.25 OOS).
+The premium is compensation for crash risk ≈ equity beta. Script: `campaign/c4_vrp_freedata.py`.
+
+## FINAL VERDICT (2026-06-03): no edge clears the bar
+Across **every accessible category — in-hand AND free data** — no strategy both *passes scrutiny* (beats
+buy-and-hold risk-adjusted / is clean alpha) AND *survives OOS*:
+- **Prediction edges** decay OOS (C1 detector-forward, C2 overnight, MOC, DAT pattern zoo) — NULL.
+- **Vol-forecasting** (v1 GEX/DIX) — KILL.
+- **Risk-premium harvest** (C4 VRP) — premium real, harvest ≈ beta, conditioning refuted — NULL as edge.
+- **Passive market-making** (ZB) — project-adjudicated non-deployable.
+Empirical capstone of the session's opening prior: *almost every "options edge" is a risk premium, not
+alpha.* Best OOS-surviving *tradeable* result is **PUTW** (Sharpe 0.77 OOS, maxDD −16.6%, lower-DD than
+equity) — a defensible allocation but **not the edge the goal seeks** (it doesn't beat the index).
+**What could change this:** genuinely un-mined data/markets (paid Databento options / VIX futures /
+diversified futures) for a properly-conditioned VRP or diversified-TSMOM test — but C4 shows even the
+clean VRP harvest is beta-dominated, so the prior on those is now also lower. Mining the exhausted data
+further would manufacture false positives — forbidden by this lab's integrity rules.

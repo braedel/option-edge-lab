@@ -27,7 +27,9 @@ OOS test. Running log + trial registry: `CAMPAIGN.md`.
 - **C1** threshold-detector v2 forward-OOS: **NULL** — frozen rules net −$0.90 to −$4.90/trade on unseen
   2025H2–2026 (ES/NQ proxy); historical edge did not persist forward.
 - **C2** overnight drift: NULL (Sharpe 0.3–0.8, t<1.2, 2026 reversed; beta, not alpha).
-- **C3** options VRP (highest-prior survivor category): **BLOCKED — no data** (in-hand 0DTE is a 90-sec pin
-  snapshot; no VIX/option-chains; no Databento key).
-- **Status: comprehensive null + data wall.** Remaining OOS-surviving categories (VRP, VIX-carry, diversified
-  TSMOM) need a Databento key + small pull budget. Next data-free step: build VRP harness ready-to-run.
+- **C3** options VRP in-hand: blocked (0DTE = 90-sec snapshot; no key). **C4** VRP via FREE data (PUTW/VIX):
+  premium real (VIX>RV 83%) but harvest is **beta not alpha** — PUTW Sharpe 0.68/0.77-OOS does NOT beat SPY;
+  conditioning refuted. **NULL as edge.**
+- **FINAL VERDICT: no strategy clears 'passes scrutiny (beats buy-hold) AND survives OOS'.** Every category
+  (prediction, vol-forecast, risk-premium, passive-MM) NULL/beta/blocked. Best tradeable survivor = PUTW
+  (lower-DD equity-like beta), not the sought edge. See `CAMPAIGN.md`. Unblock needs un-mined data/markets.
