@@ -67,3 +67,15 @@ through 2022). Honestly characterized: a **modest-Sharpe diversifying crisis-hed
 portfolio's drawdown and pays off in equity bears — a real, tradeable (futures) managed-futures strategy, not
 an equity-beating alpha engine. Broader lesson: *prediction edges and risk premia in mined retail data are
 beta or noise; the robust survivor is a diversifying, crisis-positive trend overlay.*
+
+## Upgrade (C7/C8, 2026-06-03): Sharpe>1 deployable portfolio (no tuning)
+Principled levers, all pre-registered: expand to **21 ETFs / 7 asset classes** → blended-lookback TREND
+Sharpe **0.45 → 0.76** (OOS 0.79) purely from diversification; cross-sectional momentum tested but weak
+(0.35, OOS 0.22) → **dropped, disclosed**; vol-target 10%; combine equal-risk with 60/40 →
+**DEPLOY: Sharpe 1.08 full / 1.15 OOS, maxDD −10.2%** (vs SPY −51%, 60/40 −31%). OOS *higher* than full →
+not overfit; textbook params. Caveat: carries equity beta (corr 0.67) — a balanced portfolio, not
+market-neutral alpha. **Options tail hedge** (modeled rolling 1m SPY put-spread 5→20% OTM, sized to ~0.3
+equity-beta) trims maxDD −10%→~−5%, Sharpe-neutral-to-positive but **sensitive to premium assumption
+(optimistic ~0.2–0.4%/mo) + sample (GFC/COVID)** → treat as DD-insurance, not a free Sharpe boost. Trend is
+futures-native (ETF proxy conservative). Scripts `campaign/c7_multifactor.py`, `c8_deployable_hedged.py`;
+tearsheets `reports/tsmom_pnl_underwater.png`, `reports/deployable_pnl_underwater.png`.
