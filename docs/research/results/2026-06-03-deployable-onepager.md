@@ -29,9 +29,15 @@ drawdown to **~−5%**.
 - **OOS > in-sample** (1.15 vs 1.08) — the opposite of an overfit signature.
 - **Capacity:** ~0.67× notional turnover/month → low; the instruments are the most liquid futures on earth → highly scalable.
 
-## 3. Options tail hedge (used surgically)
-Trend is already a positive-carry synthetic hedge, so explicit puts only cover the **fast crashes trend is too slow to catch**. A **modeled** rolling 1-month SPY put **spread** (5→20% OTM, sized to the ~0.30 equity beta, 0.30%/mo premium): monthly Sharpe **1.21 → 1.26**, maxDD **−8.6% → −4.9%**.
-**Honest caveat:** that *Sharpe* lift is sensitive to the premium assumption (optimistic ~0.2–0.4%/mo; real SPX spreads cost more) and to the sample *containing* the GFC + COVID. **Treat the hedge as reliable drawdown insurance at ~Sharpe-neutral expected cost — not a free boost.** (Validate with real option data before relying on the Sharpe lift.)
+## 3. Options tail hedge (used surgically) — VERIFIED (C10), and the "Sharpe lift" did NOT survive
+Trend is already a positive-carry synthetic hedge, so explicit puts only cover the **fast crashes trend is too slow to catch**. A **modeled** rolling 1-month SPY put **spread** (5→20% OTM, ~0.30 equity-beta notional).
+At my optimistic 0.30%/mo premium it showed monthly Sharpe 1.21→1.26. **Re-tested at realistic premiums**
+(real SPX 1m 5→20% spreads cost ~0.5–0.8%/mo): the lift **reverses to −0.07 (0.50%/mo) … −0.18 (0.70%/mo)**,
+and stays negative even excluding 2008 **and** 2020 (−0.13 to −0.20). The apparent lift was a premium artifact.
+**What IS robust at every premium/sample: maxDD −8.6% → ~−5% (the tail is reliably halved).**
+**Verdict: the hedge is genuine drawdown insurance at a ~0.1–0.2 Sharpe cost (~1%/yr) — NOT a Sharpe boost.**
+The headline **Sharpe 1.08 stands on the *unhedged* portfolio.** (Replace the modeled premium with real option
+data — ~$200–1,500 — to finalize.) Script: `campaign/c10_verify_hedge.py`.
 
 ## 2 (spec). Futures implementation — the real, cheaper, scalable build
 The ETF backtest is a **conservative proxy**; run it in futures (no borrow, lower cost, capital-efficient margin, 1256 60/40 tax). Map:
