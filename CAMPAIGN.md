@@ -79,3 +79,17 @@ equity-beta) trims maxDD −10%→~−5%, Sharpe-neutral-to-positive but **sensi
 (optimistic ~0.2–0.4%/mo) + sample (GFC/COVID)** → treat as DD-insurance, not a free Sharpe boost. Trend is
 futures-native (ETF proxy conservative). Scripts `campaign/c7_multifactor.py`, `c8_deployable_hedged.py`;
 tearsheets `reports/tsmom_pnl_underwater.png`, `reports/deployable_pnl_underwater.png`.
+
+## Audit correction (C11/C12, 2026-06-03): headline revised DOWN — overstatement caught
+Independent quant + engineering audits, every finding re-verified in `c12`. **Code is clean / no look-ahead**
+(proven by truncation/prefix-recompute, exact-zero invariance) — but the **"Sharpe>1 alpha" framing was
+overstated.** Verified: DEPLOY earns **−0.7%/yr vs 60/40** (the Sharpe edge is *risk reduction*, not return);
+improvement over 60/40 is **not significant at 95%** (ΔSharpe 95% CI [−0.04, +0.56], P=0.96); the realistically
+tradeable version (liquid names, proper levered-turnover cost, short-borrow) is **Sharpe ~0.9–1.0**, not 1.07
+(the headline leans ~0.1 on illiquid/carry, esp. SHY); the **"futures ~1.07" claim is WITHDRAWN** (it was the
+borrow-off ETF run *with* dividends; price-return futures lose that carry — not backtested); maxDD **−12.4%
+realized (~−16% tail)**; options hedge **excluded**. Multiple-testing: spec evolved post-hoc (universe 8→21 was
+the biggest lever), un-deflated. **Honest verdict: a leak-free DIVERSIFICATION OVERLAY ≈0.9–1.0 Sharpe that
+halves a 60/40's risk at equal return — NOT a 60/40-beating alpha.** (One audit-subagent number, "0.67 @10bps
+cost", did NOT replicate — real 0.93; subagent findings were independently re-checked, per the fabrication
+watch.) Scripts `campaign/c11_clean_verify.py`, `c12_audit_verify.py`. Doc: `docs/research/results/2026-06-03-deployable-onepager.md`.
