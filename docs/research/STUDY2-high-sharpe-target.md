@@ -38,6 +38,14 @@
   collapses the Sharpe. `campaign/c17_shortvol.py`.
 - **E3 — pairs / stat-arb** (8 economically-related ETF pairs, standard z-reversion, OOS, heavy cost): Sharpe
   **−0.47** (negative), −69% DD — classic pairs is dead / cost-eaten. `campaign/c18_pairs.py`.
+- **E4 — crypto trend** (BTC/ETH/LTC/BNB/XRP, new market): long/short Sharpe 0.89 (**OOS 0.20**); long/flat 1.41
+  (**OOS 0.81**), −13% DD — but **42% positive months**. Full-sample inflated by 2017/2020-21 bulls; OOS decays;
+  and trend is structurally too choppy to "win most months." Look-ahead 0.00. `campaign/c19_crypto.py`.
+
+**The decisive disproof — % positive months across EVERY market/strategy tested:** crypto-trend 42%, ensemble
+61%, SPY 70%, **PUTW (premium-selling) 74%** — and "&le;2 losing months/yr" needs **&ge;83%**. *Nothing* reaches it
+except (closest) premium-selling, which carries the −28% to −95% tail. Trend/momentum is choppy by nature
+(40–61% positive months) in every market; "win most months" is uniquely the premium-selling = tail trade.
 
 ## VERDICT (2026-06-08): the four criteria are mutually contradictory on real instruments
 No honestly-backtestable, free-data strategy meets {Sharpe>2, ≤2 losing-months/yr, low DD, ≤$15k}, and the
