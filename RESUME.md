@@ -25,9 +25,14 @@ No option-price data + **no data spend** &rarr; options strategies cannot be hon
   significant at 95%). Early "1.08 / >1 alpha / futures 1.07 / options-hedge lift" claims were artifacts,
   corrected. Deck: `docs/research/results/2026-06-03-trend-overlay-study-deck.html`; one-pager:
   `docs/research/results/2026-06-03-deployable-onepager.md`; registry: `CAMPAIGN.md`.
-- **Study 2 — JUST STARTED.** Charter/plan/deflated-prior: `docs/research/STUDY2-high-sharpe-target.md`.
-  **Next = write & run experiment E1** (no script yet): a diversified **L/S ensemble** (trend + short-term
-  reversal + cross-sectional momentum), vol-targeted, leak-free, cost-stressed. Start at `campaign/c16_ensemble.py`.
+- **Study 2 — E1–E4 DONE, VERDICT REACHED & RE-VERIFIED (2026-06-08).** Charter+results+verdict:
+  `docs/research/STUDY2-high-sharpe-target.md`. Scripts: c16 (ensemble **0.74**), c17 (short-vol: PUTW 0.68/
+  −28%, SVXY 0.34/−95%, regime-filtered 0.27), c18 (pairs **−0.47**), c19 (crypto trend 1.41 full/**0.81 OOS**,
+  but 42% pos-months). All 4 re-ran 2026-06-08, numbers replicate exactly, look-ahead audits = 0.00.
+  **VERDICT: {Sharpe>2 + ≤2 losing-months/yr + low-DD + ≤$15k} is NOT achievable honestly on free data — the
+  criteria are mutually contradictory.** Proof: ≤2 losing-months/yr ⇒ ≥83% positive months ⇒ Sharpe≈3.3
+  (symmetric) OR negative skew = premium-selling = catastrophic tail. **Verified ceiling ~0.9–1.0** (Study-1
+  trend overlay, already audited/deployable). **Awaiting owner decision (see NEXT STEPS).**
 
 ## CRITICAL METHOD LESSONS (from Study-1 audit — non-negotiable)
 1. **Leak-free, PROVEN.** Every result passes a perturbation/truncation test (corrupt FUTURE data &rarr; PAST
@@ -52,11 +57,14 @@ No option-price data + **no data spend** &rarr; options strategies cannot be hon
 - **Git/GitHub:** `origin` = github.com/braedel/option-edge-lab (token-free URL; PAT in encrypted Windows cred +
   gitignored `.env.txt` &rarr; `OPT_EDGE_LAB_API_KEY`). `git -C D:\workspace\options-edge-lab push origin main` works.
 
-## NEXT STEPS (Study 2, E1)
-1. Write/run `campaign/c16_ensemble.py`: trend + short-term reversal (weekly, cross-sectional &minus;5d-return rank,
-   inverse-vol) + cross-sectional 12m momentum; vol-target each sleeve ex-ante to 10%; equal-risk combine;
-   vol-target the ensemble. Report **Sharpe, % positive months, maxDD, OOS&ge;2016, cost 2/5/10 bps + borrow**;
-   run the perturbation leak test.
-2. Compare honestly to the >2 / win-most-months / low-DD targets. Iterate only if it raises the *honest* number.
-3. If a candidate clears the bar: independent quant+engineer audit, then re-verify. Else: report the honest
-   ceiling and exactly what (option data, different markets) a credible >2 would require.
+## NEXT STEPS (Study 2 — awaiting owner decision, 2026-06-08)
+The >2 goal is a verified NULL on free data. Owner to choose direction:
+1. **Deliver the ~1.0 deployable** (recommended) — relax "win most months"; package the audited Study-1 trend
+   overlay (Sharpe ~1.0, halves 60/40 risk, ≤$15k) as the real tradeable strategy. Only path that yields an
+   actual tradeable result with no data spend and no fabrication.
+2. **Write up the NULL** — document the verified result (criteria contradictory; ceiling ~1.0) as a Study-2
+   result page/deck, mirroring Study-1's honest close.
+3. **Spend on option data** — lift the no-spend constraint to test defined-risk option selling (the one path
+   that *could* reach >2; but PUTW≈0.7 and a crash hits all positions at once).
+4. **Keep hunting free data** — untested avenues (intraday ES/NQ 1-min, crypto funding carry). Low prior +
+   multiple-testing risk: every new strategy on the same data raises the odds of a spurious >2.
