@@ -1,0 +1,17 @@
+# Isolated engine venv (.venv-mbo) for the ZB MBO taker study.
+# Separate from the main .venv because hftbacktest 2.4.4 requires numpy>=2.0,<2.3
+# while the main venv runs numpy 2.4 / pandas 3.0. Install with:
+#   py -3.12 -m venv .venv-mbo
+#   .venv-mbo\Scripts\python.exe -m pip install -r requirements-mbo.txt
+#   .venv-mbo\Scripts\python.exe -m pip install -e .
+numpy>=2.0,<2.3
+pandas>=2.2,<2.3
+scipy>=1.12
+statsmodels>=0.14
+scikit-learn>=1.4
+numba>=0.60
+hftbacktest==2.4.4
+databento
+zstandard
+pyarrow>=15
+pytest>=8
