@@ -6,7 +6,13 @@ TAKER net ~−1.0t (predictable move ~0.1t ≪ ~1.13t cost); MAKER wins 64-69%/+
 −0.77/−1.02t (adverse-selection tail dominates — win-most-but-catastrophic-tail, same as Study-2). hftbacktest
 harness NOT built (optimistic proxy already net-negative). Verdict:
 `docs/research/results/2026-06-09-zb-mbo-verdict.md`; registry in `CAMPAIGN.md`. Would need true colocation.
-**Do not re-litigate single-instrument ZB microstructure.** Below = the (now-historical) build log.
+**EVENTS (owner's NFP/FOMC/CPI thesis, tested 2026-06-09): also NULL** -- post-release continuation,
+mid-based/ZERO-spread, 32 months: pooled ~0t, %cont~0.50, LOO sign-unstable at realistic >=5s entry; the
+only signal is at +1s (NFP +8t continue / CPI -9t reverse, incoherent, decays by 5s) = the conceded
+sub-second/colo window. Quant CONCUR-KILL; doc `docs/research/results/2026-06-09-zb-mbo-event-continuation-null.md`.
+Data now mirrored local `D:\TradingData\databento\ZB` (loader honors `ZB_DATA_ROOT`; share is ~13 MB/s).
+**Do not re-litigate single-instrument ZB microstructure (incl event variants -- PinFly trap); untested =
+forward live/paper TCA only.** Below = the (now-historical) build log.
 
 ## ACTIVE BUILD — ZB MBO selective-taker (branch `zb-mbo-taker`, since 2026-06-08)
 Owner granted **100% autonomy + expert-subagent reviews** (route quant/code reviews to subagents, NOT the

@@ -8,13 +8,16 @@ most-recent UNBURNED block reserved for the single final OOS look.
 from __future__ import annotations
 
 import datetime as dt
+import os
 from pathlib import Path
 
 import numpy as np
 
 from .calendar import excluded_roll_days
 
-SHARE = Path(r"\\10.0.0.13\d_drive\TradingData\databento\ZB")
+# Data root: the network share by default; override with ZB_DATA_ROOT to read a local mirror (much faster --
+# the share's reads are Defender-scanned and choke under concurrent np.load). month_path() reads this.
+SHARE = Path(os.environ.get("ZB_DATA_ROOT", r"\\10.0.0.13\d_drive\TradingData\databento\ZB"))
 NS_PER_DAY = np.int64(86_400_000_000_000)
 DATA_START = dt.date(2023, 1, 1)
 DATA_END = dt.date(2026, 4, 30)

@@ -15,12 +15,19 @@ Reports per event-type (FOMC/NFP/CPI) and pooled-08:30: mean continuation (ticks
 leave-one-out (does dropping ANY single event flip the pooled sign?); the delay-decay curve.
 KILL (Stage 1): pooled mean continuation < ~2t OR %continued ~50% (no direction) OR LOO-fragile -> stop
 before modeling spread. PASS -> Stage 2 (widened spread + fill-rate).
-Reads data/zb_macro_events.csv (frozen). Run after c31.
+Reads data/zb_macro_events.csv (frozen). Months are fanned across a process pool (independent files).
 """
 from __future__ import annotations
 
+import os
+
+# cap BLAS/OpenMP threads per worker BEFORE numpy import so a pool of workers does not oversubscribe cores
+for _v in ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS", "NUMEXPR_NUM_THREADS"):
+    os.environ.setdefault(_v, "2")
+
 import csv
 import datetime as dt
+import multiprocessing as mp
 from collections import defaultdict
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -37,6 +44,7 @@ SEC = 1_000_000_000
 LAT = 1_000_000  # 1 ms
 DELAYS = [1, 5, 30]      # reaction-delay seconds (1s = colo-decay probe)
 HORIZONS = [120, 600]    # hold seconds (2 min, 10 min)
+NPROC = 10               # one per physical core; ~1.5 GB/worker, single shared network share
 CAL = Path("data/zb_macro_events.csv")
 
 
@@ -61,42 +69,56 @@ def px_at(tts, tpx, t):
     return float(tpx[j]) if j >= 0 else np.nan
 
 
+def process_month(arg):
+    """Worker: load one month, return [(delay, H, type, contaminated, cont_ticks), ...] for its events."""
+    mk, events = arg
+    a = load_events(month_path(mk))
+    istr = action(a["ev"]).astype(np.int64) == TRADE
+    tts, tpx = a["exch_ts"][istr], a["px"][istr]
+    out = []
+    for e in events:
+        t0 = e["t"]
+        p0 = px_at(tts, tpx, t0)
+        for d in DELAYS:
+            pr = px_at(tts, tpx, t0 + d * SEC)
+            if not np.isfinite(pr):
+                continue
+            direction = np.sign(pr - p0)
+            if direction == 0:
+                continue
+            entry = px_at(tts, tpx, t0 + d * SEC + LAT)
+            for h in HORIZONS:
+                exit_px = px_at(tts, tpx, t0 + d * SEC + LAT + h * SEC)
+                if not (np.isfinite(entry) and np.isfinite(exit_px)):
+                    continue
+                out.append((d, h, e["type"], e["contaminated"], float((exit_px - entry) / TICK * direction)))
+    return mk, out
+
+
+def stats(vals):
+    v = np.array(vals, float)
+    if len(v) < 5:
+        return f"n={len(v)} (too few)"
+    se = v.std(ddof=1) / np.sqrt(len(v))
+    return f"n={len(v):3d} mean={v.mean():+5.2f}t med={np.median(v):+5.2f}t %cont={np.mean(v > 0):4.2f} t={v.mean() / se:+5.2f}"
+
+
 def main():
     evs = load_calendar()
     bymonth = defaultdict(list)
     for e in evs:
         bymonth[e["date"][:7]].append(e)
-    # collect per-event continuation for each cell
-    data = {(d, h): [] for d in DELAYS for h in HORIZONS}   # (delay,H) -> list of (type, contaminated, cont_ticks)
-    for mk, es in sorted(bymonth.items()):
-        a = load_events(month_path(mk))
-        istr = action(a["ev"]).astype(np.int64) == TRADE
-        tts, tpx = a["exch_ts"][istr], a["px"][istr]
-        for e in es:
-            t0 = e["t"]
-            p0 = px_at(tts, tpx, t0)
-            for d in DELAYS:
-                pr = px_at(tts, tpx, t0 + d * SEC)            # price at end of reaction window
-                direction = np.sign(pr - p0)
-                if direction == 0 or not np.isfinite(pr):
-                    continue
-                entry = px_at(tts, tpx, t0 + d * SEC + LAT)
-                for h in HORIZONS:
-                    exit_px = px_at(tts, tpx, t0 + d * SEC + LAT + h * SEC)
-                    if not (np.isfinite(entry) and np.isfinite(exit_px)):
-                        continue
-                    cont = (exit_px - entry) / TICK * direction
-                    data[(d, h)].append((e["type"], e["contaminated"], cont))
-        del a
+    items = sorted(bymonth.items())
+    nproc = min(NPROC, len(items))
+    print(f"loading {len(items)} months across {nproc} workers...", flush=True)
+    data = {(d, h): [] for d in DELAYS for h in HORIZONS}
+    with mp.Pool(nproc) as pool:
+        for mk, res in pool.imap_unordered(process_month, items):
+            for (d, h, typ, ct, cont) in res:
+                data[(d, h)].append((typ, ct, cont))
+            print(f"  done {mk} ({len(res)} obs)", flush=True)
 
-    def stats(vals):
-        v = np.array(vals, float)
-        if len(v) < 5:
-            return f"n={len(v)} (too few)"
-        se = v.std(ddof=1) / np.sqrt(len(v))
-        return f"n={len(v):3d} mean={v.mean():+5.2f}t med={np.median(v):+5.2f}t %cont={np.mean(v>0):4.2f} t={v.mean()/se:+5.2f}"
-
-    print("=== Stage-1 event continuation (MID-BASED, no spread) ===")
+    print("\n=== Stage-1 event continuation (MID-BASED, no spread) ===")
     for d in DELAYS:
         for h in HORIZONS:
             rows = data[(d, h)]
@@ -104,14 +126,12 @@ def main():
             for typ in ("FOMC", "NFP", "CPI"):
                 vals = [c for (t, _, c) in rows if t == typ]
                 print(f"   {typ:5s}: {stats(vals)}")
-            # CPI-clean (drop contaminated months) + pooled-08:30 (NFP + clean CPI)
             cpi_clean = [c for (t, ct, c) in rows if t == "CPI" and not ct]
             pooled = [c for (t, ct, c) in rows if t == "NFP" or (t == "CPI" and not ct)]
             print(f"   CPI(clean): {stats(cpi_clean)}")
             print(f"   POOL 08:30: {stats(pooled)}")
 
-    # leave-one-out on the headline cell (delay=5s, hold=600s), pooled
-    hl = [c for (t, ct, c) in data[(5, 600)] if t == "FOMC" or t == "NFP" or (t == "CPI" and not ct)]
+    hl = [c for (t, ct, c) in data[(5, 600)] if t in ("FOMC", "NFP") or (t == "CPI" and not ct)]
     if len(hl) >= 5:
         v = np.array(hl, float)
         loo = [np.delete(v, i).mean() for i in range(len(v))]
