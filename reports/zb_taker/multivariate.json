@@ -1,0 +1,31 @@
+{
+  "train_months": [
+    "2024-05",
+    "2024-06",
+    "2024-07"
+  ],
+  "val_months": [
+    "2025-06",
+    "2025-07",
+    "2025-08"
+  ],
+  "n_train": 498180,
+  "n_oos": 506047,
+  "results": {
+    "Ridge": {
+      "ic_in": 0.06564821355845527,
+      "ic_oos": 0.07124775109505618,
+      "taker_net_oos": -1.0922464039901434,
+      "win": 0.011915889235584837,
+      "top_decile_conf_net": -1.0545092382175676
+    },
+    "GBR": {
+      "ic_in": 0.27602847824946586,
+      "ic_oos": 0.22594312706220498,
+      "taker_net_oos": -1.0033100008497235,
+      "win": 0.012232065401039825,
+      "top_decile_conf_net": -0.9274269340974213
+    }
+  },
+  "note": "OOS multivariate signal check; 13 causal features; GBR frozen on TRAIN; val months are forward OOS. UNCONDITIONAL IC -- a maker edge requires the conditional-on-fill test (c25), not this."
+}
