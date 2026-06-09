@@ -53,7 +53,11 @@ The Sharpe>2 target is not reachable on ZB futures alone at near-CME latency. St
   like Sharpe ~1.2/1.6 but it was a full-in-sample-β centering artifact; with a deployable rolling β it's
   in-sample ~0.5 and **OOS-negative**. Near-unit-root residual + directional 2023–25 curve trend + multi-leg
   cost (~3.7t crossing vs ~2t limit). Don't re-litigate without finer (MBP-1) execution data.
-- **OZB options (defined-risk)** — the cheap-OTM wrap of THIS edge was promising in the c44 first cut (keeps
-  Sharpe, halves DD) but is **gated on this edge validating forward** (no point wrapping an unproven edge).
+- **OZB options (defined-risk) — BUILT on real OZB quotes (c52-c53b):** the cheap-OTM wrap caps the tail as
+  designed (best ~1pt OTM: maxDD $1,055→**$326**, worst −$473→**−$144**) BUT costs Sharpe (naked 1.25 →
+  options **~0.85**) — real OZB premiums (~$500–2,600) + bid/ask eat the modest edge (the c44 cheap-premium
+  first cut was too optimistic). **Naked #1 is the better deployable** (DD ~$1k already acceptable on ≤$15k);
+  the options wrap is an optional ultra-low-DD / no-blow-up variant at a real Sharpe cost. OZB data + cache +
+  the PinFly engine are now in place if wanted.
 - Remaining: **colocation** (the sub-second spike) — infra change.
 This spec is the no-new-spend path to a tradeable result.
