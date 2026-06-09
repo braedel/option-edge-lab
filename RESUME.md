@@ -12,7 +12,15 @@ only signal is at +1s (NFP +8t continue / CPI -9t reverse, incoherent, decays by
 sub-second/colo window. Quant CONCUR-KILL; doc `docs/research/results/2026-06-09-zb-mbo-event-continuation-null.md`.
 Data now mirrored local `D:\TradingData\databento\ZB` (loader honors `ZB_DATA_ROOT`; share is ~13 MB/s).
 **Do not re-litigate single-instrument ZB microstructure (incl event variants -- PinFly trap); untested =
-forward live/paper TCA only.** Below = the (now-historical) build log.
+forward live/paper TCA only.**
+**FULL ANNOUNCEMENT CAMPAIGN (Stop-hook goal, 2026-06-09, c32-c42): ONE real edge = big-surprise-direction
+trade** -- enter -sign(actual-consensus) at t+5min on BIG CPI/NFP surprises, hold 30-60min -> Sharpe ~1,
+maxDD ~$1k, ~9-12/yr, positive all 3 yrs (CPI leg cleanest, Sharpe 1.25); spike matches surprise 84/71%,
+divergences revert. NOT >2 (matches verified ~1-1.5 ceiling), power-limited (ns, ~9 events/yr -> uncertifiable
+on history). Price-pattern angles (continuation/drift/pre-drift/breakout/maker-tailguard/intraday-MR) ALL
+NULL or 2023-regime-only. Deployable forward-paper spec `docs/research/specs/2026-06-09-zb-surprise-strategy-forward-spec.md`;
+campaign results `docs/research/results/2026-06-09-zb-announcement-campaign.md`. Surprise data deep-research/BLS-verified.
+Below = the (now-historical) build log.
 
 ## ACTIVE BUILD — ZB MBO selective-taker (branch `zb-mbo-taker`, since 2026-06-08)
 Owner granted **100% autonomy + expert-subagent reviews** (route quant/code reviews to subagents, NOT the
