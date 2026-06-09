@@ -93,3 +93,18 @@ the biggest lever), un-deflated. **Honest verdict: a leak-free DIVERSIFICATION O
 halves a 60/40's risk at equal return — NOT a 60/40-beating alpha.** (One audit-subagent number, "0.67 @10bps
 cost", did NOT replicate — real 0.93; subagent findings were independently re-checked, per the fabrication
 watch.) Scripts `campaign/c11_clean_verify.py`, `c12_audit_verify.py`. Doc: `docs/research/results/2026-06-03-deployable-onepager.md`.
+
+## ZB MBO microstructure (taker + maker) — VERDICT: NULL (real signal, uncapturable) · 2026-06-09
+Owner pivoted Study-2 to **ZB L3 MBO** (Databento 2023-2026; near-CME/Denali/Teton infra). Built a leak-free
+L3 replay + 13 causal microstructure features (`src/options_lab/zb_mbo/`, `campaign/c20-c26`); expert quant+SWE
+reviewed. **A real OOS-robust directional signal exists** — GBR IC_oos **~0.226** over 3 unseen months
+(`reports/zb_taker/multivariate.json`) — **but is not capturable for the goal:**
+- **TAKER NULL:** predictable move ~0.1t ≪ ~1.13t spread+cost → net ~−1.0t (robust: single-feature IC 0.06
+  across 32 regimes; linear+non-linear OOS; horizon sweep — IC decays as fast as the move grows).
+- **MAKER NULL:** signal-informed passive quoting (fill-optimistic offline round-trip proxy, 2 unseen months)
+  **wins 64-69% with +0.87t median but mean net −0.77/−1.02t** — the adverse-selection/inventory **tail**
+  dominates. Win-most-but-catastrophic-tail = **same as Study-2** ("win most months" = the tail trade).
+  hftbacktest harness NOT built (optimistic proxy already negative; real L3 engine only harder).
+Would need **true colocation** (sub-ms, front-of-queue fills) or a cheaper structure. Verdict:
+`docs/research/results/2026-06-09-zb-mbo-verdict.md`. **Do NOT re-litigate on single-instrument ZB
+microstructure;** untested ground = true-colo execution only.

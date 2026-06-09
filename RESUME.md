@@ -1,5 +1,13 @@
 # RESUME — read this first
 
+## CLOSED 2026-06-09 — ZB MBO study = NULL (real signal, uncapturable)
+A real OOS-robust directional signal exists (GBR IC_oos ~0.226) but is **not capturable for the goal**:
+TAKER net ~−1.0t (predictable move ~0.1t ≪ ~1.13t cost); MAKER wins 64-69%/+0.87t median but mean net
+−0.77/−1.02t (adverse-selection tail dominates — win-most-but-catastrophic-tail, same as Study-2). hftbacktest
+harness NOT built (optimistic proxy already net-negative). Verdict:
+`docs/research/results/2026-06-09-zb-mbo-verdict.md`; registry in `CAMPAIGN.md`. Would need true colocation.
+**Do not re-litigate single-instrument ZB microstructure.** Below = the (now-historical) build log.
+
 ## ACTIVE BUILD — ZB MBO selective-taker (branch `zb-mbo-taker`, since 2026-06-08)
 Owner granted **100% autonomy + expert-subagent reviews** (route quant/code reviews to subagents, NOT the
 owner — they are not a quant). Goal: an honest tradeable edge from ZB L3 MBO toward Sharpe>2 (deflated prior:
