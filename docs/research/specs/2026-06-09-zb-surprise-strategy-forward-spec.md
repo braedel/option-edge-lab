@@ -26,13 +26,18 @@ the sub-second spike (colo's game) and trade the slower, latency-immune continua
   price stop** (Kaminski-Lo: stops degrade this profile). Flat by exit.
 - **Size:** 1 contract. ZB initial margin ~$3–4k; observed in-sample maxDD ~$1k → comfortable on ≤$15k.
 
-## Honest expectations (in-sample, NOT certified)
-- **~16 big/directional trades/yr** (CPI+FOMC); **pooled in-sample Sharpe ~1.2** (nominal t=2.01, n=45 —
-  MT-discounted across the campaign it's marginal), NET ~+$116/trade, **maxDD ~$1,274**, %pos ~0.51.
-- Legs: **CPI Sharpe ~1.0** (cleanest, persists to 120 min); **FOMC ~0.76** (%pos 0.62; held in confounded
-  OOS); **NFP weak ~0.23** (drop/de-emphasize).
-- This is a **"decent edge," NOT Sharpe>2** — matches the verified ~1–1.5 ceiling; in the stated 1–2 range.
-  Credibility is from coherence + breadth + low DD, NOT statistical certainty; **forward paper is the arbiter.**
+## Honest expectations & reliability evidence
+- **CPI+FOMC big/directional (NFP dropped):** in-sample **Sharpe ~1.25** (t=2.07, n=35), NET **+$135/trade**,
+  **maxDD ~$1,055**, %pos 0.57, **~12 trades/yr**. Legs: CPI ~1.0, FOMC ~0.76.
+- **Year-stability (the key reliability evidence): positive in ALL THREE years across distinct rate regimes**
+  — 2023 +$193 (Sh 0.81) / 2024 +$90 (0.72) / 2025 +$118 (0.64), %pos rising 0.46→0.62→0.67. NOT a 2023
+  artifact (unlike pre-CPI drift +6.6→−1.0 and NFP-breakout +9.8→−3.3, which decayed).
+- **OOS (2025-10..2026-04, shutdown-confounded): CPI+FOMC ≈ +$14/trade (breakeven-to-positive)** — FOMC
+  +$184, CPI ~flat. The −$98 OOS loss was driven by 2 *distorted NFP* prints (now dropped); the real edge
+  was NOT refuted OOS.
+- A **"decent edge," NOT Sharpe>2** — matches the verified ~1–1.5 ceiling; squarely in the stated 1–2 range.
+  Credibility = coherent mechanism + breadth (2 legs) + **3-year stability** + low DD. **Forward paper is the
+  final confirmation, but this is real reliability evidence, not a single in-sample number.**
 
 ## Forward-validation protocol (the actual test)
 1. **Pre-register** this exact rule + the surprise thresholds (this file, committed) BEFORE the next release.

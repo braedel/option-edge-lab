@@ -86,7 +86,7 @@ def process_month(arg):
         ex = px_at(tts, tpx, t0 + SPIKE_AFTER + HOLD)
         if not (np.isfinite(entry) and np.isfinite(ex)):
             continue
-        out.append((typ, big(typ, s), (ex - entry) / TICK * (-np.sign(s)) - COST_T))
+        out.append((typ, big(typ, s), date[:4], (ex - entry) / TICK * (-np.sign(s)) - COST_T))
     return out
 
 
@@ -115,9 +115,13 @@ def main():
 
     print("\n=== broad announcement surprise-direction edge, IN-SAMPLE, BIG surprises, hold 60min ===")
     for typ in ("CPI", "NFP", "FOMC"):
-        rep(f"{typ:4s} big", [r[2] for r in rows if r[0] == typ and r[1]])
-    rep("POOL CPI+NFP+FOMC big", [r[2] for r in rows if r[1]])
-    rep("POOL all (incl small)", [r[2] for r in rows])
+        rep(f"{typ:4s} big", [r[3] for r in rows if r[0] == typ and r[1]])
+    rep("POOL CPI+NFP+FOMC big", [r[3] for r in rows if r[1]])
+    rep("POOL CPI+FOMC big (drop NFP)", [r[3] for r in rows if r[1] and r[0] != "NFP"])
+    rep("POOL all (incl small)", [r[3] for r in rows])
+    print("\n-- per-year stability (reliability check): POOL CPI+FOMC big --")
+    for yr in ("2023", "2024", "2025"):
+        rep(f"  {yr}", [r[3] for r in rows if r[1] and r[0] != "NFP" and r[2] == yr])
     print("\n[Broad pooled Sharpe ~1 with n~40-60 = a more credible (higher-power) candidate for forward paper "
           "than CPI/NFP alone. FOMC adds 22 events; if FOMC is the steadiest leg, weight it.]")
 
