@@ -1,5 +1,34 @@
 # RESUME — read this first
 
+## ACTIVE BUILD — ZB MBO selective-taker (branch `zb-mbo-taker`, since 2026-06-08)
+Owner granted **100% autonomy + expert-subagent reviews** (route quant/code reviews to subagents, NOT the
+owner — they are not a quant). Goal: an honest tradeable edge from ZB L3 MBO toward Sharpe>2 (deflated prior:
+likely NULL; a documented ceiling is a valid result). **Do NOT fabricate >2.** Full context: auto-memory
+`project_zb_mbo_taker.md`; spec `docs/research/specs/2026-06-08-zb-mbo-taker-design.md`; plan (v2, includes the
+SWE-review corrections) `docs/research/plans/2026-06-08-zb-mbo-taker-plan.md`.
+
+**Engine venv:** `.venv-mbo` (hftbacktest 2.4.4, numpy<2.3 — separate from main `.venv`). Tests:
+`.venv-mbo\Scripts\python.exe -m pytest tests/zb_mbo tests/test_stats.py -q` (56 green).
+
+**DONE & committed:** Phase 0 venv + real-data attestation (A1 clear=3 / A2 TRADE-vs-FILL side conventions / D1
+dtypes / E Sum(TRADE)=Sum(FILL) volume oracle — ALL PASS on zb_2024-12). Phase 1 causal engine
+`src/options_lab/zb_mbo/{codes,book,calendar,loader,stream}.py` (L3 per-order replay; section-2 roll calendar;
+`eligible_days` gate excluding burned {2025-04,2025-10,2026-03,2026-04} + sealed {2025-11..2026-02}; per-trade
+causal feature stream + B2 leak proof). Phase 2 `triggers.py` (vacuum/sweep/event, B3 oracles). Phase 4
+`src/options_lab/research/stats.py` (DSR/PSR/PBO-CSCV/stationary-bootstrap/Holm/uniqueness).
+**Calibration peek (2024-06):** engine OK on real data; pure-Python ~5s/1M events (~6s/trading-day → full census
+~1–1.5h, NO numba needed); **K3 power gate CLEARED** (vacuum ~13–42/day, sweep ~2–3k/day → thousands/family) — so
+the verdict hinges on **Stage-1/2 economics (the 1.1-tick cost hurdle)**, per the deflated prior.
+
+**NEXT (resume here):** (1) Phase 3 `labeler.py` — latency-adjusted forward move from `t+latency`, excluding the
+trigger's own prints, taker far-touch entry (review A5/B6/§7.x). (2) Freeze+commit `reports/zb_taker/grid.json`
++hash (G3) and the kill-gate table with exact K1–K10 numbers (G1). (3) `c20` full census over eligible days; `c21`
+Stage-1 TRAIN-ONLY screen (K1 net>1.1 tick, K2 sign-stable, K3 ≥50 episodes). (4) Phase 6: hftbacktest probes
+P1–P6 (A5/A6/A7/B6/C1) → Stage-2 + latency sweep + placebo → sealed-OOS one-shot → DSR/PSR/PBO verdict (K4–K10).
+N_trials MUST include the 10 prior nulls + every Stage-1 cell (B4).
+
+---
+
 **Workspace:** `D:\workspace\options-edge-lab` (git &rarr; https://github.com/braedel/option-edge-lab).
 **Python:** `D:\workspace\options-edge-lab\.venv\Scripts\python.exe` (full scientific stack) — run all analyses with it.
 
