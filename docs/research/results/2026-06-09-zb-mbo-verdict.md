@@ -50,3 +50,14 @@ Leak-free causal engine (perturbation-proven); action codes/side conventions att
 headline 0.23 was re-run and committed with provenance (an earlier lapse: it was cited before its evidence was
 committed — fixed); expert quant + SWE reviews applied; deflated prior carried throughout. Both NULLs are the
 deflated-prior-expected outcome.
+
+**hftbacktest fill behavior — self-verified (`campaign/c27_hftbt_fill_probe.py`, 2026-06-09).** Prompted to
+check (no hand-wave), I ran the installed engine myself rather than trust the SWE review: a synthetic L3 book
+builds correctly; a **marketable order fills and is signaled correctly** (`FILLED`, exec_qty/exec_price/position
+correct, num_trades=1); but a **resting passive order does NOT fill on a `TRADE_EVENT` through its level**
+(stays `NEW`) — confirming a naive maker harness would register silent zero fills, and that the engine fills
+passive orders *less* readily than the `c25/c26` proxy assumed. (Also confirmed: fee model defaults to $0; the
+`Order.tick_size` accessor bug.) **Consequence:** the maker conclusion is **proxy-based, and the proxy is
+optimistic on fills**, so the real engine would be strictly harder — the maker NULL is conservative. A correct
+engine maker harness was never built; that remains the only path to an engine-measured (vs proxy) maker number,
+and is expected to confirm the NULL.
