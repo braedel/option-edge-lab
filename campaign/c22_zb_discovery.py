@@ -42,17 +42,30 @@ def mid_at(timeline, t):
 
 
 def build_features(snaps):
+    """Causal pre-move microstructure features (all known at the trade; trailing stats use .shift(1))."""
     bb, ba = snaps["best_bid"], snaps["best_ask"]
     bid1, ask1 = snaps["bid1"], snaps["ask1"]
     bid3, ask3 = snaps["bid3"], snaps["ask3"]
-    micro = (bb * ask1 + ba * bid1) / (bid1 + ask1)        # size-weighted microprice
-    sgnflow = pd.Series(snaps["trade_signed"])
+    mid = snaps["mid"]
+    sgn = pd.Series(snaps["trade_signed"])
+    asz = sgn.abs()
+    micro = (bb * ask1 + ba * bid1) / (bid1 + ask1)          # size-weighted microprice
+    midret = pd.Series(mid).diff() / TICK
+    di = pd.Series((bid3 - ask3) / (bid3 + ask3))
+    dt_ms = pd.Series(snaps["ts"].astype("int64")).diff().clip(lower=0) / 1e6
     feats = pd.DataFrame({
-        "depth_imb": (bid3 - ask3) / (bid3 + ask3),
+        "depth_imb": di.to_numpy(),
         "top1_imb": (bid1 - ask1) / (bid1 + ask1),
-        "micro_dev": (micro - snaps["mid"]) / TICK,
-        "flow_50": sgnflow.rolling(FLOW_W).sum().shift(1).to_numpy(),
-        "size_z": np.abs(snaps["trade_signed"]) / pd.Series(np.abs(snaps["trade_signed"])).rolling(SIZE_W).median().shift(1).to_numpy(),
+        "micro_dev": (micro - mid) / TICK,
+        "flow_10": sgn.rolling(10).sum().shift(1).to_numpy(),
+        "flow_50": sgn.rolling(FLOW_W).sum().shift(1).to_numpy(),
+        "flow_200": sgn.rolling(200).sum().shift(1).to_numpy(),
+        "size_z": (asz / asz.rolling(SIZE_W).median().shift(1)).to_numpy(),
+        "rv_100": midret.rolling(100).std().shift(1).to_numpy(),                 # realized vol (ticks)
+        "vpin_50": (sgn.rolling(50).sum().abs() / asz.rolling(50).sum()).shift(1).to_numpy(),  # flow toxicity
+        "di_change": (di - di.shift(20)).to_numpy(),                            # book tilting
+        "top_conc": (bid1 / bid3 - ask1 / ask3),                               # top-of-book concentration
+        "log_dt": np.log1p(dt_ms.to_numpy()),                                  # log ms since last trade
         "spread_ticks": snaps["spread_ticks"].astype(float),
     })
     return feats
@@ -96,9 +109,9 @@ def main(month="zb_2024-06.npz", max_events=6_000_000):
     for c in feats.columns:
         z = (feats[c][big].mean() - feats[c].mean()) / (feats[c].std() + 1e-12)
         print(f"  {c:12s} mean_z_at_big_moves={z:+.3f}")
-    print("\n=== (d) horizon sweep: does a longer hold let depth_imb clear the fixed ~1.13t taker cost? ===")
+    print(f"\n=== (d) horizon sweep on strongest feature '{top}': can a longer hold clear the ~1.13t cost? ===")
     last_ts = int(tl["ts"][-1])
-    feat = feats["depth_imb"].to_numpy()
+    feat = feats[top].to_numpy()
     hi = feat >= np.percentile(feat, 80)
     lo = feat <= np.percentile(feat, 20)
     for Hs in (5, 30, 120, 300, 900, 1800):
