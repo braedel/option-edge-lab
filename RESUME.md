@@ -13,14 +13,22 @@ sub-second/colo window. Quant CONCUR-KILL; doc `docs/research/results/2026-06-09
 Data now mirrored local `D:\TradingData\databento\ZB` (loader honors `ZB_DATA_ROOT`; share is ~13 MB/s).
 **Do not re-litigate single-instrument ZB microstructure (incl event variants -- PinFly trap); untested =
 forward live/paper TCA only.**
-**FULL ANNOUNCEMENT CAMPAIGN (Stop-hook goal, 2026-06-09, c32-c42): ONE real edge = big-surprise-direction
-trade** -- enter -sign(actual-consensus) at t+5min on BIG CPI/NFP surprises, hold 30-60min -> Sharpe ~1,
-maxDD ~$1k, ~9-12/yr, positive all 3 yrs (CPI leg cleanest, Sharpe 1.25); spike matches surprise 84/71%,
-divergences revert. NOT >2 (matches verified ~1-1.5 ceiling), power-limited (ns, ~9 events/yr -> uncertifiable
-on history). Price-pattern angles (continuation/drift/pre-drift/breakout/maker-tailguard/intraday-MR) ALL
-NULL or 2023-regime-only. Deployable forward-paper spec `docs/research/specs/2026-06-09-zb-surprise-strategy-forward-spec.md`;
-campaign results `docs/research/results/2026-06-09-zb-announcement-campaign.md`. Surprise data deep-research/BLS-verified.
-Below = the (now-historical) build log.
+**3-PATH GOAL (Stop-hook, 2026-06-09, c32-c51) -- outcomes:**
+**#1 surprise-direction (BEST candidate, owner takes Sharpe 1-2):** enter -sign(surprise) at t+5min on BIG
+CPI + FOMC surprises (NFP weak %pos0.30 -> drop), hold 60min -> IN-SAMPLE pooled Sharpe ~1.2 (nominal t=2.01,
+n=45), NET +$116/trade, maxDD ~$1.3k, ~16/yr; CPI(Sharpe~1.0)+FOMC(~0.76) the real legs. Spike matches
+surprise 84%/71%; divergences revert. OOS (2025-10..2026-04) shutdown-CONFOUNDED + went negative (NFP
+distorted prints; FOMC held n=3). NOT validated -> **FORWARD PAPER is the arbiter.** Spec
+`docs/research/specs/2026-06-09-zb-surprise-strategy-forward-spec.md`.
+**#2 cross-instrument curve RV (ZN/ZF/ES) = NULL:** ZB~ZN+UB residual reversion looked Sharpe ~1.2/1.6 on a
+FIXED in-sample beta but COLLAPSES with a deployable rolling beta (in-sample ~0.5, OOS-negative) = fixed-beta
+artifact + near-unit-root + directional curve trend. databento curve ohlcv-1m pulled ($19). c46-c50.
+**#3 defined-risk options (cheap OTM) = GATED on #1:** c44 first cut -- debit SPREADS kill the winner-driven
+edge; a CHEAP OTM option keeps Sharpe ~1 + halves DD. Promising but don't wrap an unproven edge; OZB data ~$23
+when #1 validates. PinFly options engine `spx-0dte-pinfly-lab/src/spx_pinfly_lab/core/butterfly.py`
+(quote-based; needs Black-76 for intraday marks). **databento key: `spx-0dte-pinfly-lab\databendto_key.txt`.**
+Price-pattern angles (continuation/drift/pre-drift/breakout/maker-tailguard/intraday-MR) ALL NULL/2023-regime.
+Campaign doc `docs/research/results/2026-06-09-zb-announcement-campaign.md`. Below = the (now-historical) build log.
 
 ## ACTIVE BUILD — ZB MBO selective-taker (branch `zb-mbo-taker`, since 2026-06-08)
 Owner granted **100% autonomy + expert-subagent reviews** (route quant/code reviews to subagents, NOT the
