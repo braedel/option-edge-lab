@@ -13,6 +13,18 @@ must clear a Bonferroni/BH bar over *all* candidates tried, not just its own tes
 - **MOC close-auction futures** — NULL / non-deployable; April-2025-dominated; no fresh data (ends 2025-09).
 - **options-edge-lab Stage-1a v1** (GEX/DIX → forward vol) — robust KILL (no incremental edge over realized vol).
 - **DAT opening-drive pullback** — overfit / 2025-concentrated (NULL).
+- **Cross-instrument lead-lag (ZN→ZB/UB, ES→rates), slow/non-event** — NULL by literature + our own taker/maker
+  results (2026-06-09 survey). The effect is REAL (liquid leads illiquid; the 10y **ZN is the rates
+  price-discovery leader**) but reduces to the **SAME two walls we already hit:** a **taker** can't beat the
+  spread even at ~60% directional accuracy (Huth-Abergel arXiv:1111.7103 — *"a naive strategy based on market
+  orders cannot make any profit of this effect because of the bid/ask spread"* = our `c22-c24` taker NULL,
+  move ~0.1t ≪ ~1.13t cost), and the only profitable version is **limit-order/maker with queue priority =
+  colocation** (our `c25-c26` maker NULL = adverse-selection tail at non-colo latency). It is a **microsecond
+  arms race** (Budish-Cramton-Shim QJE'15; Aquilina-Budish-O'Neill QJE'22, ~31µs exch-to-trader), and **slow
+  times = smaller moves = the spread wall is WORSE**, not better. **Don't re-litigate without colocation.** The
+  one variant NOT covered = the **big-surprise 2-3s** cross-instrument move (the only setting where the move may
+  exceed the spread) — untested, needs a sub-second multi-symbol data pull (the curve data we own is 1-min, too
+  coarse); low prior, same cost wall.
 
 ## Candidates
 ### C1 — Threshold-detector v2 forward-OOS · **VERDICT: NULL (fails forward)** · 2026-06-03
