@@ -13,20 +13,36 @@ sub-second/colo window. Quant CONCUR-KILL; doc `docs/research/results/2026-06-09
 Data now mirrored local `D:\TradingData\databento\ZB` (loader honors `ZB_DATA_ROOT`; share is ~13 MB/s).
 **Do not re-litigate single-instrument ZB microstructure (incl event variants -- PinFly trap); untested =
 forward live/paper TCA only.**
-**3-PATH GOAL (Stop-hook, 2026-06-09, c32-c51) -- outcomes:**
-**#1 surprise-direction (BEST candidate, owner takes Sharpe 1-2):** enter -sign(surprise) at t+5min on BIG
-CPI + FOMC surprises (NFP weak %pos0.30 -> drop), hold 60min -> IN-SAMPLE pooled Sharpe ~1.2 (nominal t=2.01,
-n=45), NET +$116/trade, maxDD ~$1.3k, ~16/yr; CPI(Sharpe~1.0)+FOMC(~0.76) the real legs. Spike matches
-surprise 84%/71%; divergences revert. OOS (2025-10..2026-04) shutdown-CONFOUNDED + went negative (NFP
-distorted prints; FOMC held n=3). NOT validated -> **FORWARD PAPER is the arbiter.** Spec
-`docs/research/specs/2026-06-09-zb-surprise-strategy-forward-spec.md`.
+**3-PATH GOAL (Stop-hook, 2026-06-09, c32-c53b) -- COMPLETE; outcomes:**
+**#1 surprise-direction (the one real edge; owner takes Sharpe 1-2) -- DEPLOYABLE, forward-paper-pending:**
+enter -sign(surprise) at t+5min on BIG CPI + FOMC surprises (|CPI core MoM|>=0.1% / any non-neutral FOMC;
+**NFP DROPPED** -- in-sample %pos 0.30), hold 60min. Frozen in-sample: **Sharpe ~1.25 (t=2.07, n=35)**, NET
++$135/trade, maxDD ~$1,055, %pos 0.57, ~12/yr; legs CPI ~1.0 + FOMC ~0.76. **KEY EVIDENCE: positive ALL 3
+years** across rate regimes (2023 +$193/Sh0.81, 2024 +$90/0.72, 2025 +$118/0.64) -- NOT a 2023 artifact like
+the price-pattern leads. Coherent mechanism (spike matches surprise 84%/71%; divergences revert to the
+fundamental). BUT ns at the MT floor (power wall ~9-12 evts/yr) + OOS (2025-10..2026-04) shutdown-CONFOUNDED
+(distorted NFP, now dropped; CPI+FOMC alone ~+$14/tr, FOMC +$184). **NOT certifiable on history -> FORWARD
+PAPER is the arbiter.** Frozen spec `docs/research/specs/2026-06-09-zb-surprise-strategy-forward-spec.md`;
+per-event + charts `reports/zb_surprise/`.
 **#2 cross-instrument curve RV (ZN/ZF/ES) = NULL:** ZB~ZN+UB residual reversion looked Sharpe ~1.2/1.6 on a
 FIXED in-sample beta but COLLAPSES with a deployable rolling beta (in-sample ~0.5, OOS-negative) = fixed-beta
 artifact + near-unit-root + directional curve trend. databento curve ohlcv-1m pulled ($19). c46-c50.
-**#3 defined-risk options (cheap OTM) = GATED on #1:** c44 first cut -- debit SPREADS kill the winner-driven
-edge; a CHEAP OTM option keeps Sharpe ~1 + halves DD. Promising but don't wrap an unproven edge; OZB data ~$23
-when #1 validates. PinFly options engine `spx-0dte-pinfly-lab/src/spx_pinfly_lab/core/butterfly.py`
-(quote-based; needs Black-76 for intraday marks). **databento key: `spx-0dte-pinfly-lab\databendto_key.txt`.**
+**#3 OZB options to protect the trade = PRICED on real OZB quotes; BOTH structures FAIL (c52-c54), deploy
+naked:** OZB data pulled+cached+validated. **(a) defined-risk REPLACEMENT** (option IN trade dir instead of
+the future, c53/c53b): caps the tail (best ~1pt OTM maxDD $1,055->$326, worst -$473->-$144) BUT costs Sharpe
+(naked 1.25 -> ~0.85). **(b) protective OVERLAY** (future + ADVERSE-side OTM put/call = the literal "protect
+the downside" ask, c54): **strictly WORSE than naked on Sharpe AND Calmar at every offset (0.5-2.0pt OTM)
+under both exit-marking bounds** -- even the generous bound (0.5 OTM: naked Sh+0.47 -> overlay +0.06). Why:
+trade wins >50%, so you bleed premium on the majority of winners where the hedge expires OTM (+$871 win ->
++$9 after an $862 put); insured loss is modest (worst ~-$500); and the OTM strike STOPS being quoted ~30min
+post-move (drifts off-money *because* the trade won) so a realistic exit lapses, which *raises* maxDD
+($731->$4,292). Per-trade insurance is the wrong tool for a losing-streak DD (~$1k), not a per-trade blow-up.
+**==> Deploy NAKED #1** (DD ~$1k fine on <=$15k); the c44 cheap-premium first cut was too optimistic. PinFly
+engine `spx-0dte-pinfly-lab/src/spx_pinfly_lab/core/butterfly.py`; **databento key
+`spx-0dte-pinfly-lab\databendto_key.txt`**; OZB quotes cached `D:\TradingData\databento\ozb`.
+**==> Sharpe>2 = VERIFIED NULL on ZB futures at near-CME latency (confirms Study-2). Best honest result =
+#1 (~1.25 in-sample, forward-paper-pending). Awaiting owner decision: forward-paper #1, or authorize a data
+spend / infra change for a fresh direction (NOT more single-instrument ZB microstructure -- exhausted).**
 Price-pattern angles (continuation/drift/pre-drift/breakout/maker-tailguard/intraday-MR) ALL NULL/2023-regime.
 Campaign doc `docs/research/results/2026-06-09-zb-announcement-campaign.md`. Below = the (now-historical) build log.
 

@@ -108,3 +108,27 @@ reviewed. **A real OOS-robust directional signal exists** — GBR IC_oos **~0.22
 Would need **true colocation** (sub-ms, front-of-queue fills) or a cheaper structure. Verdict:
 `docs/research/results/2026-06-09-zb-mbo-verdict.md`. **Do NOT re-litigate on single-instrument ZB
 microstructure;** untested ground = true-colo execution only.
+
+## Macro-announcement edge campaign (c32-c54) — one decent edge (#1), forward-paper-pending · 2026-06-09
+Owner Stop-hook refocus onto the large-move announcements (NFP/FOMC/CPI). Frozen pre-registered calendar (86
+events), near-CME exec model (~1.13t cost), 32-month L3 passes. **8 price-pattern angles ALL NULL or
+2023-regime artifacts** (continuation / slow-drift / pre-CPI-drift / breakout / maker-tailguard / intraday-MR;
+`c32-c40`) — two structural walls: the **2023-regime trap** + the **power wall** (~9–30 events/yr ⇒ ~35 yr to
+reach t>2; small announcement edges are structurally unconfirmable here). **3-PATH outcome (`c41-c54`):**
+- **#1 surprise-direction (the one real edge):** condition on the actual-vs-consensus surprise (deep-research
+  assembled, verified); enter −sign(surprise) at t+5min on BIG CPI+FOMC surprises, hold 60min. In-sample
+  Sharpe ~1.25 (t=2.07, n=35), NET +$135/tr, maxDD ~$1,055, ~12/yr, **positive ALL 3 years** (Sh
+  0.81/0.72/0.64); coherent mechanism (spike matches surprise 84%/71%; divergences revert). BUT ns at the MT
+  floor (power wall), OOS (2025-10..2026-04) shutdown-CONFOUNDED (distorted NFP, dropped) → **NOT certifiable
+  on history; forward paper is the arbiter.** Spec `docs/research/specs/2026-06-09-zb-surprise-strategy-forward-spec.md`.
+- **#2 cross-instrument curve RV (ZN/ZF/ES) = NULL** (`c46-c50`): fixed-β residual-reversion artifact;
+  deployable rolling-β → in-sample ~0.5, OOS-negative. Curve ohlcv-1m pulled ($19).
+- **#3 OZB options to protect the trade = BOTH structures FAIL (`c52-c54`):** (a) defined-risk REPLACEMENT
+  (option in trade dir, c53/c53b) caps the tail (maxDD $1,055→$326) but costs Sharpe (1.25→~0.85); (b)
+  protective OVERLAY (future + adverse-side OTM option, c54) is **worse than naked on Sharpe AND Calmar at
+  every offset under both exit bounds** — you bleed premium on the >50% winners (hedge expires OTM), the
+  insured loss is modest (~−$500), and OTM OZB strikes go unquoted ~30min post-move (lapse↔win). Real OZB
+  quotes; cached `D:\TradingData\databento\ozb`. **Deploy naked #1.**
+**Trial count:** these ~22 cells (`c32-c54`) join the registry's prior nulls for any campaign-level MT
+haircut. **Sharpe>2 = verified NULL on ZB futures at near-CME latency** (confirms Study-2 from the
+announcement side). Campaign doc `docs/research/results/2026-06-09-zb-announcement-campaign.md`.

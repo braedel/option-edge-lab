@@ -53,11 +53,23 @@ The Sharpe>2 target is not reachable on ZB futures alone at near-CME latency. St
   like Sharpe ~1.2/1.6 but it was a full-in-sample-β centering artifact; with a deployable rolling β it's
   in-sample ~0.5 and **OOS-negative**. Near-unit-root residual + directional 2023–25 curve trend + multi-leg
   cost (~3.7t crossing vs ~2t limit). Don't re-litigate without finer (MBP-1) execution data.
-- **OZB options (defined-risk) — BUILT on real OZB quotes (c52-c53b):** the cheap-OTM wrap caps the tail as
-  designed (best ~1pt OTM: maxDD $1,055→**$326**, worst −$473→**−$144**) BUT costs Sharpe (naked 1.25 →
-  options **~0.85**) — real OZB premiums (~$500–2,600) + bid/ask eat the modest edge (the c44 cheap-premium
-  first cut was too optimistic). **Naked #1 is the better deployable** (DD ~$1k already acceptable on ≤$15k);
-  the options wrap is an optional ultra-low-DD / no-blow-up variant at a real Sharpe cost. OZB data + cache +
-  the PinFly engine are now in place if wanted.
+- **OZB options to protect the trade — PRICED on real OZB quotes; BOTH structures FAIL to help (`c52-c54`):**
+  - **(a) defined-risk REPLACEMENT** (buy a cheap OTM option *in* the trade direction *instead of* the future,
+    `c53/c53b`): caps the tail as designed (best ~1pt OTM: maxDD $1,055→**$326**, worst −$473→**−$144**) BUT
+    costs Sharpe (naked 1.25 → options **~0.85**) — real premiums (~$500–2,600) + bid/ask eat the modest edge.
+  - **(b) protective OVERLAY** (hold the future **and** buy an *adverse-side* OTM put/call as insurance — the
+    literal "protect the downside" structure the owner asked for, `c54`): **strictly WORSE than naked on Sharpe
+    AND Calmar at every strike offset (0.5–2.0pt OTM), under both a generous and a harsh exit-marking.** Even
+    the *generous* bound (give the hedge full salvage value) is below naked (e.g. 0.5pt OTM: naked Sharpe
+    +0.47/Calmar +1.96 → overlay +0.06/+0.14). Mechanism, visible per-event: the trade wins **>50%** of the
+    time, so you bleed premium on the majority of (winning) trades where the hedge expires OTM — e.g. a +$871
+    win nets +$9 after an $862 put; a +$1,027 FOMC win nets +$602 after a $425 put. The loss it insures is
+    modest (worst ~−$500), and the OTM strike **stops being two-sided quoted ~30 min after a big move** (it
+    drifts off-the-money — *because* the trade won), so a realistic exit is an unsellable hedge that lapses,
+    which actually **raises** maxDD (e.g. $731→$4,292). Per-trade option insurance is the wrong tool for a
+    **losing-streak drawdown** (this trade's real risk, ~$1k) — it is not a per-trade blow-up.
+  - **==> Deploy NAKED #1** (DD ~$1k already acceptable on ≤$15k); no OZB options wrap improves it (the `c44`
+    cheap-premium first cut was too optimistic). OZB quotes cached at `D:\TradingData\databento\ozb`; the
+    PinFly options engine is in place if a future structure is ever wanted.
 - Remaining: **colocation** (the sub-second spike) — infra change.
 This spec is the no-new-spend path to a tradeable result.
