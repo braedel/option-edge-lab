@@ -1,5 +1,29 @@
 # ZB big-surprise direction trade — deployable forward-validation spec
 
+> ## ⚠️ CRITICAL-REVIEW CORRECTION — 2026-06-09 (read before trusting anything below)
+> A 3-reviewer adversarial quant audit (findings re-verified independently) found this spec **overstated** and
+> in **violation of the freeze discipline (CLAUDE.md rules 2 & 7).** Binding corrections:
+> - **The "FROZEN" rule was RE-TUNED AFTER the OOS look.** Git trail (all 2026-06-09): frozen as **CPI+NFP,
+>   FOMC-excluded** (`280909c`, 14:54) → OOS ran and **went NEGATIVE** (`7b0b6ae`, 16:45) → NFP dropped + FOMC
+>   added **4 min later** (`070c58d`, 16:49) → re-labeled "OOS-not-refuted, meets the bar" (`5fa0ff7`). **The
+>   CPI+FOMC rule below has NEVER been tested out-of-sample.** "OOS not refuted / meets the bar" is **RETRACTED.**
+> - **Fails multiple-testing.** In-sample t=2.07 (reproduced exactly via `c51`/`c55`: n=35, Sharpe 1.25, maxDD
+>   **~$1,400** chronological — the $1,055/$1,239 figures used a scrambled trade order) is below the Bonferroni
+>   bar (~3.3 over ~22 trials); deflated Sharpe ~0.34. Legs are individually weak (CPI t=1.64, **FOMC t=1.25**).
+>   **Not significant by our |t|>3 rule** and **underpowered** (minimum detectable effect > the effect).
+> - **Winner-driven** (2023, the biggest year, wins only 46%; Sharpe collapses dropping 2-3 trades).
+> - **FOMC leg is a discretionary hand-label with no written rubric** (leakage risk — the trade is mechanically
+>   −sign(label)). **But robustness (`c55`) is reassuring on the worst cases:** FOMC-only wins only 62%
+>   (inconsistent with hindsight-fitted labels); **CPI-only (mechanical) is Sharpe 0.99** so the edge does not
+>   hang on FOMC; dropping the 8 `contaminated`-flagged events *improves* it (Sharpe **1.38**, t 2.29); and the
+>   futures **fill-sweep survives** (Sharpe 1.54/1.25/0.96/0.67 at 0/1/2/3 t slippage, NET positive throughout).
+>
+> **Honest status: a real, reasonably-robust IN-SAMPLE signal (~Sharpe 1.0–1.25) that is UNVALIDATED — it fails
+> multiple-testing and, due to the freeze violation, has NEVER been OOS-tested.** A legitimate forward-paper
+> candidate (~30–40% it survives forward), **NOT "a decent edge that meets the bar."** Do NOT build or deploy
+> until the cleanup (written FOMC rubric + point-in-time surprise table + honest re-freeze with a sealed OOS or
+> forward block) is done. Audit: `docs/research/results/2026-06-09-zb-surprise-strategy-dossier.md`.
+
 **Date:** 2026-06-09 · Derived from the announcement campaign (`docs/research/results/2026-06-09-zb-announcement-campaign.md`).
 **What this is:** the one real edge the campaign found, written as a precise, *pre-registered* rule to
 forward-paper-trade. It is the only honest way past the power wall (~9 events/yr can't certify on history).

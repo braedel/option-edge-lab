@@ -127,12 +127,19 @@ events), near-CME exec model (~1.13t cost), 32-month L3 passes. **8 price-patter
 2023-regime artifacts** (continuation / slow-drift / pre-CPI-drift / breakout / maker-tailguard / intraday-MR;
 `c32-c40`) — two structural walls: the **2023-regime trap** + the **power wall** (~9–30 events/yr ⇒ ~35 yr to
 reach t>2; small announcement edges are structurally unconfirmable here). **3-PATH outcome (`c41-c54`):**
-- **#1 surprise-direction (the one real edge):** condition on the actual-vs-consensus surprise (deep-research
-  assembled, verified); enter −sign(surprise) at t+5min on BIG CPI+FOMC surprises, hold 60min. In-sample
-  Sharpe ~1.25 (t=2.07, n=35), NET +$135/tr, maxDD ~$1,055, ~12/yr, **positive ALL 3 years** (Sh
-  0.81/0.72/0.64); coherent mechanism (spike matches surprise 84%/71%; divergences revert). BUT ns at the MT
-  floor (power wall), OOS (2025-10..2026-04) shutdown-CONFOUNDED (distorted NFP, dropped) → **NOT certifiable
-  on history; forward paper is the arbiter.** Spec `docs/research/specs/2026-06-09-zb-surprise-strategy-forward-spec.md`.
+- **#1 surprise-direction (post-hoc hypothesis — UNVALIDATED; critical-review-corrected 2026-06-09):**
+  condition on the actual-vs-consensus surprise; enter −sign(surprise) at t+5min on BIG CPI+FOMC surprises,
+  hold 60min. In-sample reproduces exactly (`c51`/`c55`): Sharpe ~1.25 (t=2.07, n=35), NET +$135/tr, maxDD
+  ~$1,400 (chron), positive all 3 yrs; legs CPI 0.99/t1.64 + FOMC 0.76/t1.25. ⚠️ **3-reviewer adversarial
+  audit (re-verified) RETRACTED the earlier "meets the bar":** (1) **FREEZE-VIOLATION** — rule frozen as
+  CPI+NFP (`280909c`) → OOS went NEGATIVE (`7b0b6ae`) → NFP-dropped+FOMC-added 4min later (`070c58d`) → **the
+  CPI+FOMC rule was NEVER OOS-tested**; (2) fails MT (t2.07 < Bonferroni ~3.3 / ~22 cells; deflated Sh ~0.34;
+  underpowered); (3) winner-driven (2023 wins 46%); (4) FOMC discretionary hand-label, no rubric. **BUT
+  robustness (`c55`) reassuring:** survives fill-sweep (Sh 0.96 @2t, +NET @3t), survives/improves dropping 8
+  contaminated events (Sh1.38), CPI-only (mechanical) Sh0.99, FOMC-only wins 62% (not hindsight-fitted). =
+  real reasonably-robust IN-SAMPLE signal, UNVALIDATED (~30-40% survives fwd). **Path A:** cleanup (FOMC rubric
+  + point-in-time table + honest re-freeze) → SIM ACSIL fwd-paper iff survives. Spec(corrected)+dossier+audit
+  `docs/research/`; per-event `reports/zb_surprise/per_event_cpifomc.csv`.
 - **#2 cross-instrument curve RV (ZN/ZF/ES) = NULL** (`c46-c50`): fixed-β residual-reversion artifact;
   deployable rolling-β → in-sample ~0.5, OOS-negative. Curve ohlcv-1m pulled ($19).
 - **#3 OZB options to protect the trade = BOTH structures FAIL (`c52-c54`):** (a) defined-risk REPLACEMENT

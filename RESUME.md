@@ -14,16 +14,21 @@ Data now mirrored local `D:\TradingData\databento\ZB` (loader honors `ZB_DATA_RO
 **Do not re-litigate single-instrument ZB microstructure (incl event variants -- PinFly trap); untested =
 forward live/paper TCA only.**
 **3-PATH GOAL (Stop-hook, 2026-06-09, c32-c53b) -- COMPLETE; outcomes:**
-**#1 surprise-direction (the one real edge; owner takes Sharpe 1-2) -- DEPLOYABLE, forward-paper-pending:**
-enter -sign(surprise) at t+5min on BIG CPI + FOMC surprises (|CPI core MoM|>=0.1% / any non-neutral FOMC;
-**NFP DROPPED** -- in-sample %pos 0.30), hold 60min. Frozen in-sample: **Sharpe ~1.25 (t=2.07, n=35)**, NET
-+$135/trade, maxDD ~$1,055, %pos 0.57, ~12/yr; legs CPI ~1.0 + FOMC ~0.76. **KEY EVIDENCE: positive ALL 3
-years** across rate regimes (2023 +$193/Sh0.81, 2024 +$90/0.72, 2025 +$118/0.64) -- NOT a 2023 artifact like
-the price-pattern leads. Coherent mechanism (spike matches surprise 84%/71%; divergences revert to the
-fundamental). BUT ns at the MT floor (power wall ~9-12 evts/yr) + OOS (2025-10..2026-04) shutdown-CONFOUNDED
-(distorted NFP, now dropped; CPI+FOMC alone ~+$14/tr, FOMC +$184). **NOT certifiable on history -> FORWARD
-PAPER is the arbiter.** Frozen spec `docs/research/specs/2026-06-09-zb-surprise-strategy-forward-spec.md`;
-per-event + charts `reports/zb_surprise/`.
+**#1 surprise-direction = UNVALIDATED post-hoc hypothesis (critical review 2026-06-09 RETRACTED the earlier
+"meets the bar"):** enter -sign(surprise) at t+5min on BIG CPI + FOMC surprises, hold 60min. In-sample
+reproduces exactly (c51/c55): **Sharpe ~1.25 (t=2.07, n=35)**, NET +$135/tr, %pos 0.57, maxDD ~$1,400 (chron;
+$1,055 was wrong), positive all 3 yrs; legs CPI ~0.99/t1.64 + FOMC ~0.76/t1.25. **3-reviewer adversarial audit
+(re-verified) found, BINDING:** (1) **FREEZE-VIOLATION** -- rule was frozen as CPI+NFP/FOMC-excluded (280909c),
+OOS ran + went NEGATIVE (7b0b6ae), then NFP-dropped+FOMC-added 4min later (070c58d) -> **the CPI+FOMC rule was
+NEVER OOS-tested;** "OOS not refuted/meets the bar" RETRACTED. (2) **fails MT** (t2.07 < Bonferroni ~3.3 over
+~22 cells; deflated Sharpe ~0.34; underpowered MDE>effect). (3) **winner-driven** (2023 wins only 46%).
+(4) FOMC = discretionary hand-label, no rubric (leakage risk). **BUT robustness (c55) reassuring:** survives
+fill-sweep (Sh 0.96 @2t slip, +NET @3t), survives/improves dropping 8 contaminated events (Sh1.38), CPI-only
+(mechanical) Sh0.99 so doesn't hang on FOMC, FOMC-only wins only 62% (not hindsight-fitted). **Honest status:
+real reasonably-robust IN-SAMPLE signal, UNVALIDATED (~30-40% survives forward).** Path A (owner "do it"):
+honest cleanup [written FOMC rubric + point-in-time surprise table + honest re-freeze w/ sealed forward block]
+THEN SIM-only ACSIL forward-paper IF it survives; else shelve. Spec (corrected) + dossier in docs/research;
+per-event artifact `reports/zb_surprise/per_event_cpifomc.csv`; audit scripts c51/c55.
 **#2 cross-instrument curve RV (ZN/ZF/ES) = NULL:** ZB~ZN+UB residual reversion looked Sharpe ~1.2/1.6 on a
 FIXED in-sample beta but COLLAPSES with a deployable rolling beta (in-sample ~0.5, OOS-negative) = fixed-beta
 artifact + near-unit-root + directional curve trend. databento curve ohlcv-1m pulled ($19). c46-c50.
