@@ -25,10 +25,13 @@ NEVER OOS-tested;** "OOS not refuted/meets the bar" RETRACTED. (2) **fails MT** 
 (4) FOMC = discretionary hand-label, no rubric (leakage risk). **BUT robustness (c55) reassuring:** survives
 fill-sweep (Sh 0.96 @2t slip, +NET @3t), survives/improves dropping 8 contaminated events (Sh1.38), CPI-only
 (mechanical) Sh0.99 so doesn't hang on FOMC, FOMC-only wins only 62% (not hindsight-fitted). **Honest status:
-real reasonably-robust IN-SAMPLE signal, UNVALIDATED (~30-40% survives forward).** Path A (owner "do it"):
-honest cleanup [written FOMC rubric + point-in-time surprise table + honest re-freeze w/ sealed forward block]
-THEN SIM-only ACSIL forward-paper IF it survives; else shelve. Spec (corrected) + dossier in docs/research;
-per-event artifact `reports/zb_surprise/per_event_cpifomc.csv`; audit scripts c51/c55.
+real reasonably-robust IN-SAMPLE signal, UNVALIDATED (~30-40% survives forward).** **CLEANUP DONE (path A):**
+FOMC blind rubric re-classification = **21/22 match** (lone flip 2024-06-12 = +$90 winner, Sh1.25->1.23 --
+labels NOT hindsight-fitted); all robustness passed. **Re-FROZEN v2**
+`docs/research/specs/2026-06-09-zb-surprise-FROZEN-v2-postaudit.md` as an UNVALIDATED hypothesis w/ a strict
+pre-registered forward kill-gate. **NEXT: build SIM-only Sierra Chart ACSIL** to forward-paper it (design TBD:
+surprise-input mechanism + pre-live controls). Only a forward/sealed test can validate (power wall +
+never-OOS-tested). Artifacts: dossier, `2026-06-09-fomc-blind-classification.md`, per_event_cpifomc.csv; c51/c55.
 **#2 cross-instrument curve RV (ZN/ZF/ES) = NULL:** ZB~ZN+UB residual reversion looked Sharpe ~1.2/1.6 on a
 FIXED in-sample beta but COLLAPSES with a deployable rolling beta (in-sample ~0.5, OOS-negative) = fixed-beta
 artifact + near-unit-root + directional curve trend. databento curve ohlcv-1m pulled ($19). c46-c50.
