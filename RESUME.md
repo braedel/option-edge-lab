@@ -1,5 +1,12 @@
 # RESUME — read this first
 
+> ## ⛔ PROJECT CLOSED 2026-06-10 — see `CLOSEOUT.md`
+> Final outcome: **no edge meeting the goal was validated; Sharpe>2 = verified NULL** on this data/latency.
+> One deployable modest result (Study-1 TSMOM ~Sharpe 1.0 diversifier); one unvalidated ~30–40% hypothesis
+> (**#1** macro-surprise, forward-paper *designed, not built*); everything else NULL. Full tally + the
+> integrity story (the #1 "meets the bar" retraction after the freeze-violation audit) + disposition are in
+> **`CLOSEOUT.md`**. Everything below is the (now-historical) working state.
+
 ## CLOSED 2026-06-09 — ZB MBO study = NULL (real signal, uncapturable)
 A real OOS-robust directional signal exists (GBR IC_oos ~0.226) but is **not capturable for the goal**:
 TAKER net ~−1.0t (predictable move ~0.1t ≪ ~1.13t cost); MAKER wins 64-69%/+0.87t median but mean net

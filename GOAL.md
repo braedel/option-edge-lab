@@ -1,6 +1,9 @@
 # GOAL — options-edge-lab
 
-**Status:** greenfield · selecting candidate edges · **target: TBD**
+**Status:** **CLOSED 2026-06-10** — no edge meeting the goal was validated; **Sharpe>2 = verified NULL** on
+this data/latency (verified ceiling ~1.0–1.5). One deployable modest diversifier (Study-1 TSMOM ~Sharpe 1.0);
+one unvalidated ~30–40% hypothesis (#1 macro-surprise, forward-paper designed-not-built); all else NULL.
+Full closeout: **`CLOSEOUT.md`**.
 
 ## Charter
 Find a **real, out-of-sample-survivable options edge** and prove it under strict research integrity — or
